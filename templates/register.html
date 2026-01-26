@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block content %}
+<div class="min-h-[80vh] flex items-center justify-center px-4">
+    <div class="bg-[#020617] p-8 rounded-2xl border border-slate-800 w-full max-w-md shadow-2xl">
+        <h2 class="text-3xl font-extrabold text-white mb-2">Register Team</h2>
+        <p class="text-slate-400 mb-8 text-sm">Create your squad to enter the arena.</p>
+
+        <form method="POST" class="space-y-5">
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Team Name</label>
+                <input type="text" name="team_name" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-green-500 transition">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">College Name</label>
+                <input type="text" name="college" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-green-500 transition">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Email Address</label>
+                <input type="email" name="email" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-green-500 transition">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Password</label>
+                <input type="password" name="password" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-green-500 transition">
+            </div>
+            <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-slate-900 font-bold py-4 rounded-xl transition transform hover:scale-[1.02]">
+                Create Team
+            </button>
+        </form>
+        <p class="mt-6 text-center text-slate-500 text-sm">
+            Already registered? <a href="/login" class="text-green-500 hover:underline">Login here</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

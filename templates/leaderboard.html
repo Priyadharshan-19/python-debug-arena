@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-black text-white mb-2 uppercase tracking-tighter">Global <span class="text-blue-500">Leaderboard</span></h1>
+        <p class="text-slate-500">Real-time rankings of the top debugging squads.</p>
+    </div>
+
+    <div class="bg-[#020617] rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-slate-900/50 border-b border-slate-800">
+                    <th class="p-6 text-xs font-bold uppercase tracking-widest text-slate-500">Rank</th>
+                    <th class="p-6 text-xs font-bold uppercase tracking-widest text-slate-500">Team Name</th>
+                    <th class="p-6 text-xs font-bold uppercase tracking-widest text-slate-500">Current Level</th>
+                    <th class="p-6 text-xs font-bold uppercase tracking-widest text-slate-500 text-right">Total Score</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/50">
+                {% for team in teams %}
+                <tr class="hover:bg-slate-900/30 transition-colors group">
+                    <td class="p-6">
+                        {% if loop.index == 1 %}
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-yellow-500/20 text-yellow-500 font-bold border border-yellow-500/50">1</span>
+                        {% elif loop.index == 2 %}
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-300/20 text-slate-300 font-bold border border-slate-300/50">2</span>
+                        {% elif loop.index == 3 %}
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-orange-500/20 text-orange-500 font-bold border border-orange-500/50">3</span>
+                        {% else %}
+                            <span class="text-slate-600 font-mono pl-3">{{ loop.index }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="p-6 font-bold text-white group-hover:text-blue-400 transition-colors">
+                        {{ team.team_name }}
+                        <div class="text-[10px] text-slate-500 font-normal uppercase tracking-wider">{{ team.college }}</div>
+                    </td>
+                    <td class="p-6">
+                        <div class="flex items-center gap-2">
+                            <span class="text-slate-300 font-mono">Level {{ team.current_level }}</span>
+                            <div class="w-24 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="bg-blue-500 h-full" style="width: {{ (team.current_level / 5) * 100 }}%"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-6 text-right">
+                        <span class="text-2xl font-black text-green-500 font-mono">{{ team.total_score }}</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    setTimeout(function(){
+       window.location.reload(1);
+    }, 30000); // Refreshes every 30 seconds
+</script>
+{% endblock %}

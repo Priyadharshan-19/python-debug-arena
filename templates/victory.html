@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="min-h-[80vh] flex flex-col items-center justify-center px-4 text-center">
+    <div class="relative mb-8">
+        <div class="absolute inset-0 bg-yellow-500/20 blur-3xl rounded-full"></div>
+        <div class="relative bg-gradient-to-b from-yellow-400 to-yellow-600 p-6 rounded-full border-4 border-yellow-300 shadow-[0_0_50px_rgba(234,179,8,0.4)]">
+            <svg class="w-20 h-20 text-slate-900" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <h1 class="text-5xl md:text-7xl font-black text-white mb-4 tracking-tighter uppercase">
+        Mission <span class="text-yellow-500">Accomplished</span>
+    </h1>
+    <p class="text-slate-400 max-w-lg text-lg mb-10">
+        Congratulations, <span class="text-white font-bold">{{ team.team_name }}</span>! You have successfully debugged all systems and secured the arena.
+    </p>
+
+    <div class="bg-[#020617] border border-yellow-500/30 p-8 rounded-3xl w-full max-w-md mb-10 shadow-2xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 p-2 opacity-10">
+            <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>
+        </div>
+        
+        <div class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Final Total Score</div>
+        <div class="text-6xl font-black text-yellow-500 mb-6 font-mono">{{ team.total_score }}</div>
+        
+        <div class="flex justify-between text-sm border-t border-slate-800 pt-6">
+            <div class="text-left">
+                <div class="text-slate-500 uppercase text-[10px] font-bold tracking-widest">Status</div>
+                <div class="text-green-400 font-bold uppercase">Elite Debugger</div>
+            </div>
+            <div class="text-right">
+                <div class="text-slate-500 uppercase text-[10px] font-bold tracking-widest">College</div>
+                <div class="text-slate-200">{{ team.college }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-4">
+        <a href="/leaderboard" class="px-8 py-4 bg-white text-slate-900 font-bold rounded-xl transition-all transform hover:scale-105 shadow-xl">
+            View Final Standings
+        </a>
+        <a href="/" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition-all">
+            Exit Arena
+        </a>
+    </div>
+</div>
+
+<script>
+    // Trigger ultimate celebration confetti
+    window.onload = () => {
+        const duration = 5 * 1000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+        function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+        const interval = setInterval(function() {
+            const timeLeft = animationEnd - Date.now();
+            if (timeLeft <= 0) return clearInterval(interval);
+
+            const particleCount = 50 * (timeLeft / duration);
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+        }, 250);
+    };
+</script>
+{% endblock %}

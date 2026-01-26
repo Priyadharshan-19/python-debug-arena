@@ -1,0 +1,46 @@
+/* Glassmorphism for cards */
+.glass-card {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Competitive Pulse for the Active Level */
+.active-pulse {
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+    animation: pulse-border 2s infinite;
+}
+
+@keyframes pulse-border {
+    0% { border-color: rgba(34, 197, 94, 0.5); }
+    50% { border-color: rgba(34, 197, 94, 1); }
+    100% { border-color: rgba(34, 197, 94, 0.5); }
+}
+
+/* Smooth level transitions */
+.level-entry {
+    animation: slideInRight 0.4s ease-out forwards;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* =========================================
+   FULLSCREEN BACKGROUND PROTECTION
+   Prevents "desktop peeking" in fullscreen
+   ========================================= */
+:fullscreen {
+    background-color: #020617;
+}
+
+:-webkit-full-screen {
+    background-color: #020617;
+}
