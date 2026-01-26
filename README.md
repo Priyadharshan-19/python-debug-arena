@@ -167,7 +167,7 @@ This project is purpose-built for:
 ## 👨‍💻 Developer
 
 **Priyadharshan M**
-2nd Year – Computer Science & Engineering
+2nd Year – Computer Science & Engineering @
 SNS College of Technology
 
 ---
