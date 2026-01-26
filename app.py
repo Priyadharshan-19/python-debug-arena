@@ -19,13 +19,20 @@ app = Flask(__name__)
 # Secret Key (env first, fallback for local)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-key-123')
 
-# Database URI (env first, fallback to SQLite)
+# Database URI (Production standard: relative to the instance folder)
+# This ensures data persists in a deployment-specific location
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
     'DATABASE_URL',
-    'sqlite:///' + os.path.join(basedir, 'database', 'db.sqlite3')
+    'sqlite:///' + os.path.join(basedir, 'instance', 'db.sqlite3')
 )
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Ensure the instance folder exists so SQLite can create the db file
+try:
+    os.makedirs(os.path.join(basedir, 'instance'), exist_ok=True)
+except OSError:
+    pass
 
 # =========================
 # INITIALIZE EXTENSIONS
@@ -43,6 +50,8 @@ app.register_blueprint(leaderboard_bp)
 # =========================
 # CREATE TABLES (SAFE)
 # =========================
+# Running create_all within the app context ensures tables are generated 
+# correctly on the new server
 with app.app_context():
     db.create_all()
 
