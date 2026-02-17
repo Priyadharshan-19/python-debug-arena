@@ -113,12 +113,10 @@ LEVELS = {
             "def fib(n):\n"
             "    if n <= 1:\n"
             "        return n\n"
-            "\n"
             "    a, b = 1,2\n"
             "    for _ in range(1, n + 1):\n"
             "        a, b = b\n"
-            "\n"
-            "    return b\n\n"
+            "    return b\n"
             "print(fib(35))"
         ),
         "expected_output": "9227465",
