@@ -19,7 +19,8 @@ app = Flask(__name__)
 # Secret Key (env first, fallback for local)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-key-123')
 
-# Database URI
+# Database URI (Production standard: relative to the instance folder)
+# This ensures data persists in a deployment-specific location
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
     'DATABASE_URL',
     'sqlite:///' + os.path.join(basedir, 'instance', 'db.sqlite3')
@@ -27,7 +28,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Ensure instance folder exists
+# Ensure the instance folder exists so SQLite can create the db file
 try:
     os.makedirs(os.path.join(basedir, 'instance'), exist_ok=True)
 except OSError:
@@ -47,8 +48,10 @@ app.register_blueprint(submit_bp)
 app.register_blueprint(leaderboard_bp)
 
 # =========================
-# CREATE TABLES
+# CREATE TABLES (SAFE)
 # =========================
+# Running create_all within the app context ensures tables are generated 
+# correctly on the new server
 with app.app_context():
     db.create_all()
 
@@ -58,11 +61,6 @@ with app.app_context():
 @app.route('/')
 def index():
     return render_template('index.html')
-
-# ✅ Loader.io verification route
-@app.route('/loaderio-8b703d115e5e1a915c05b0408c49b1a6.txt')
-def loaderio_verification():
-    return "loaderio-8b703d115e5e1a915c05b0408c49b1a6"
 
 # =========================
 # ENTRY POINT

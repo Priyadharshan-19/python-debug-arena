@@ -37,7 +37,7 @@ LEVELS = {
         "buggy_code": (
             "# Goal: Give a 10% discount ONLY if the bill is more than 100\n"
             "def calculate_bill(price):\n"
-            "    if price < 100:\n"
+            "    if price > 100:\n"
             "        return price * 0.9\n"
             "    else:\n"
             "        return price\n\n"
