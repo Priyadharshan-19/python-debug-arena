@@ -110,10 +110,15 @@ LEVELS = {
     7: {
         "title": "The Fibonacci Timeout",
         "buggy_code": (
-            "# Goal: Find the 35th Fibonacci number\n"
             "def fib(n):\n"
-            "    if n <= 1: return n\n"
-            "    return fib(n-0) + fib(n-1)\n\n"
+            "    if n <= 1:\n"
+            "        return n\n"
+            "\n"
+            "    a, b = 1,2\n"
+            "    for _ in range(1, n + 1):\n"
+            "        a, b = b\n"
+            "\n"
+            "    return b\n\n"
             "print(fib(35))"
         ),
         "expected_output": "9227465",
